@@ -1,103 +1,137 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { HiOutlineBackspace } from "react-icons/hi"; // 백스페이스 아이콘 임포트
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [amount, setAmount] = useState(0); // 현재 금액 상태
+  const [history, setHistory] = useState<{ change: number; total: number }[]>([]); // 변경 내역 저장 (변경 금액 + 결과 금액)
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // 금액을 더하거나 빼는 함수 및 내역 기록
+  const handleUpdateAmount = (value: number) => {
+    const newAmount = amount + value;
+    setAmount(newAmount);
+    setHistory([...history, { change: value, total: newAmount }]);
+  };
+
+  // 전체 클리어
+  const handleClear = () => {
+    setAmount(0);
+    setHistory([]);
+  };
+
+  // 마지막 작업 취소 (백스페이스 역할)
+  const handleUndoLast = () => {
+    if (history.length > 0) {
+      const newHistory = history.slice(0, -1); // 마지막 항목 제거
+      const previousAmount = newHistory.length > 0 ? newHistory[newHistory.length - 1].total : 0; // 이전 단계의 총 금액
+      setAmount(previousAmount);
+      setHistory(newHistory);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-orange-100 to-orange-300 p-4">
+
+      {/* 핸드폰 모양 컨테이너 */}
+      <div className="w-full bg-gray-800 rounded-3xl shadow-2xl p-6 flex flex-col items-center mb-8">
+         {/* 제목 영역 (컨테이너 안으로 이동)*/}
+        <h1 className="text-3xl sm:text-4xl font-extrabold mb-6 text-orange-400 drop-shadow-md">불티나 계산기</h1>
+
+        {/* 계산기 본체 (흰색 영역) */}
+        <div className="w-full bg-white rounded-xl shadow-md flex flex-col items-center p-6 mb-6">
+          {/* 내역 표시 영역 */}
+          <div className="w-full h-32 overflow-y-auto border border-gray-300 rounded p-2 mb-4 text-sm text-gray-800 font-mono">
+            {history.map((entry, index) => (
+              <div key={index} className="flex justify-between">
+                <span>{entry.change > 0 ? '+' : ''}{entry.change.toLocaleString()}</span>
+                <span>{entry.total.toLocaleString()}원</span>
+              </div>
+            ))}
+          </div>
+
+          {/* 결과 표시 영역 */}
+          <div className="text-4xl font-mono text-orange-600 mb-8 break-words text-center w-full">
+            {amount.toLocaleString()}원
+          </div>
+
+          {/* 금액 버튼 영역 (좌우 2열 그리드) */}
+          <div className="grid grid-cols-2 gap-4 w-full mb-4">
+            {/* 좌측: 덧셈 버튼 */}
+            <div className="flex flex-col gap-4">
+              <button
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                onClick={() => handleUpdateAmount(100)}
+              >
+                 +100원
+              </button>
+              <button
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                onClick={() => handleUpdateAmount(500)}
+              >
+                 +500원
+              </button>
+              <button
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                onClick={() => handleUpdateAmount(1000)}
+              >
+                 +1,000원
+              </button>
+              <button
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                onClick={() => handleUpdateAmount(5000)}
+              >
+                 +5,000원
+              </button>
+            </div>
+
+            {/* 우측: 뺄셈 버튼 */}
+            <div className="flex flex-col gap-4">
+              <button
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                onClick={() => handleUpdateAmount(-100)}
+              >
+                 -100원
+              </button>
+              <button
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                onClick={() => handleUpdateAmount(-500)}
+              >
+                 -500원
+              </button>
+              <button
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                onClick={() => handleUpdateAmount(-1000)}
+              >
+                 -1,000원
+              </button>
+              <button
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                onClick={() => handleUpdateAmount(-5000)}
+              >
+                 -5,000원
+              </button>
+            </div>
+          </div>
+
+          {/* 제어 버튼 영역 (아래에 별도 배치) */}
+          <div className="grid grid-cols-2 gap-4 w-full">
+            <button
+              className="bg-red-500 hover:bg-red-600 text-white text-xl rounded-lg py-4 font-bold shadow-md"
+              onClick={handleClear}
+            >
+              C
+            </button>
+            <button
+              className="bg-yellow-500 hover:bg-yellow-600 text-white text-2xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+              onClick={handleUndoLast}
+            >
+              <HiOutlineBackspace />
+            </button>
+          </div>
+
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
