@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { HiOutlineBackspace } from "react-icons/hi"; // 백스페이스 아이콘 임포트
+import { FaCalculator } from "react-icons/fa"; // 계산기 아이콘 임포트
 
 export default function Home() {
   const [amount, setAmount] = useState(0); // 현재 금액 상태
@@ -36,7 +37,10 @@ export default function Home() {
       {/* 핸드폰 모양 컨테이너 */}
       <div className="w-full bg-gray-800 rounded-3xl shadow-2xl p-6 flex flex-col items-center mb-8">
          {/* 제목 영역 (컨테이너 안으로 이동)*/}
-        <h1 className="text-3xl sm:text-4xl font-extrabold mb-6 text-orange-400 drop-shadow-md">불티나 계산기</h1>
+        <div className="flex items-center mb-6">
+          <FaCalculator className="text-orange-400 text-4xl mr-2" /> {/* 계산기 아이콘 */}
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-orange-400 drop-shadow-md">불티나 계산기</h1>
+        </div>
 
         {/* 계산기 본체 (흰색 영역) */}
         <div className="w-full bg-white rounded-xl shadow-md flex flex-col items-center p-6 mb-6">
