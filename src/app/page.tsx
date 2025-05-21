@@ -32,7 +32,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-orange-100 to-orange-300 p-4 font-paperlogy">
+    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-orange-100 to-orange-300 p-4" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
 
       {/* 핸드폰 모양 컨테이너 */}
       <div className="w-full bg-gray-800 rounded-3xl shadow-2xl p-6 flex flex-col items-center mb-8">
