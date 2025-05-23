@@ -65,15 +65,15 @@ export default function Home() {
             <div className="flex flex-col gap-4">
               <button
                 className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(100)}
+                onClick={() => handleUpdateAmount(10000)}
               >
-                 +100원
+                 +10,000원
               </button>
               <button
                 className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(500)}
+                onClick={() => handleUpdateAmount(5000)}
               >
-                 +500원
+                 +5,000원
               </button>
               <button
                 className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
@@ -83,9 +83,9 @@ export default function Home() {
               </button>
               <button
                 className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(5000)}
+                onClick={() => handleUpdateAmount(500)}
               >
-                 +5,000원
+                 +500원
               </button>
             </div>
 
@@ -93,15 +93,15 @@ export default function Home() {
             <div className="flex flex-col gap-4">
               <button
                 className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(-100)}
+                onClick={() => handleUpdateAmount(-10000)}
               >
-                 -100원
+                 -10,000원
               </button>
               <button
                 className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(-500)}
+                onClick={() => handleUpdateAmount(-5000)}
               >
-                 -500원
+                 -5,000원
               </button>
               <button
                 className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
@@ -111,9 +111,9 @@ export default function Home() {
               </button>
               <button
                 className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(-5000)}
+                onClick={() => handleUpdateAmount(-500)}
               >
-                 -5,000원
+                 -500원
               </button>
             </div>
           </div>
