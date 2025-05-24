@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HiOutlineBackspace } from "react-icons/hi"; // 백스페이스 아이콘 임포트
 import { FaCalculator } from "react-icons/fa"; // 계산기 아이콘 임포트
 
@@ -8,17 +8,38 @@ export default function Home() {
   const [amount, setAmount] = useState(0); // 현재 금액 상태
   const [history, setHistory] = useState<{ change: number; total: number }[]>([]); // 변경 내역 저장 (변경 금액 + 결과 금액)
 
+  // 페이지 로드 시 저장된 데이터 불러오기
+  useEffect(() => {
+    const savedAmount = localStorage.getItem('calculatorAmount');
+    const savedHistory = localStorage.getItem('calculatorHistory');
+    
+    if (savedAmount) {
+      setAmount(Number(savedAmount));
+    }
+    if (savedHistory) {
+      setHistory(JSON.parse(savedHistory));
+    }
+  }, []);
+
   // 금액을 더하거나 빼는 함수 및 내역 기록
   const handleUpdateAmount = (value: number) => {
     const newAmount = amount + value;
     setAmount(newAmount);
-    setHistory([...history, { change: value, total: newAmount }]);
+    const newHistory = [...history, { change: value, total: newAmount }];
+    setHistory(newHistory);
+    
+    // localStorage에 저장
+    localStorage.setItem('calculatorAmount', newAmount.toString());
+    localStorage.setItem('calculatorHistory', JSON.stringify(newHistory));
   };
 
   // 전체 클리어
   const handleClear = () => {
     setAmount(0);
     setHistory([]);
+    // localStorage에서도 삭제
+    localStorage.removeItem('calculatorAmount');
+    localStorage.removeItem('calculatorHistory');
   };
 
   // 마지막 작업 취소 (백스페이스 역할)
@@ -28,6 +49,10 @@ export default function Home() {
       const previousAmount = newHistory.length > 0 ? newHistory[newHistory.length - 1].total : 0; // 이전 단계의 총 금액
       setAmount(previousAmount);
       setHistory(newHistory);
+      
+      // localStorage 업데이트
+      localStorage.setItem('calculatorAmount', previousAmount.toString());
+      localStorage.setItem('calculatorHistory', JSON.stringify(newHistory));
     }
   };
 
