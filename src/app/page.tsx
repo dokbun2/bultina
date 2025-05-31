@@ -102,7 +102,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-orange-100 to-orange-300 p-2 sm:p-4 overflow-y-auto" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
+    <div className="min-h-screen flex flex-col items-center bg-white p-2 sm:p-4 overflow-y-auto" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
 
       {/* 핸드폰 모양 컨테이너 */}
       <div className="w-full max-w-md mx-auto bg-gray-800 rounded-3xl shadow-2xl p-3 sm:p-6 flex flex-col items-center mb-4 sm:mb-8">
