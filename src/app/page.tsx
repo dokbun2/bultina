@@ -47,34 +47,37 @@ export default function Home() {
   // 버튼 클릭 이벤트 핸들러
   const handleButtonClick = (e: React.MouseEvent, value: number) => {
     e.preventDefault();
+    e.stopPropagation();
     handleUpdateAmount(value);
   };
 
   // 전체 클리어
-  const handleClear = () => {
+  const handleClear = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     setAmount(0);
     setHistory([]);
-    // localStorage에서도 삭제
     localStorage.removeItem('calculatorAmount');
     localStorage.removeItem('calculatorHistory');
   };
 
   // 마지막 작업 취소 (백스페이스 역할)
-  const handleUndoLast = () => {
+  const handleUndoLast = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (history.length > 0) {
-      const newHistory = history.slice(0, -1); // 마지막 항목 제거
-      const previousAmount = newHistory.length > 0 ? newHistory[newHistory.length - 1].total : 0; // 이전 단계의 총 금액
+      const newHistory = history.slice(0, -1);
+      const previousAmount = newHistory.length > 0 ? newHistory[newHistory.length - 1].total : 0;
       setAmount(previousAmount);
       setHistory(newHistory);
       
-      // localStorage 업데이트
       localStorage.setItem('calculatorAmount', previousAmount.toString());
       localStorage.setItem('calculatorHistory', JSON.stringify(newHistory));
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-orange-100 to-orange-300 p-4" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
+    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-orange-100 to-orange-300 p-4 overflow-hidden" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
 
       {/* 핸드폰 모양 컨테이너 */}
       <div className="w-full bg-gray-800 rounded-3xl shadow-2xl p-6 flex flex-col items-center mb-8">
@@ -177,19 +180,13 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-4 w-full">
             <button
               className="bg-red-500 hover:bg-red-600 text-white text-xl rounded-lg py-2 font-bold shadow-md"
-              onClick={(e) => {
-                e.preventDefault();
-                handleClear();
-              }}
+              onClick={(e) => handleClear(e)}
             >
               C
             </button>
             <button
               className="bg-yellow-500 hover:bg-yellow-600 text-white text-2xl rounded-lg py-2 font-bold shadow-md flex items-center justify-center"
-              onClick={(e) => {
-                e.preventDefault();
-                handleUndoLast();
-              }}
+              onClick={(e) => handleUndoLast(e)}
             >
               <HiOutlineBackspace />
             </button>
