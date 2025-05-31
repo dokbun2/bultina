@@ -198,7 +198,7 @@ export default function Home() {
 
       {/* 광고 단위 코드 */}
       <ins className="adsbygoogle"
-           style={{ display: 'block' }}
+           style={{ display: 'block', minHeight: '100px' }}
            data-ad-client="ca-pub-3297361889610977"
            data-ad-slot="6720903121"
            data-ad-format="auto"
