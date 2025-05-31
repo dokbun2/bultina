@@ -77,20 +77,20 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-orange-100 to-orange-300 p-4 overflow-hidden" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
+    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-orange-100 to-orange-300 p-2 sm:p-4 overflow-hidden" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
 
       {/* 핸드폰 모양 컨테이너 */}
-      <div className="w-full bg-gray-800 rounded-3xl shadow-2xl p-6 flex flex-col items-center mb-8">
-         {/* 제목 영역 (컨테이너 안으로 이동)*/}
-        <div className="flex items-center mb-6">
-          <FaCalculator className="text-orange-400 text-4xl mr-2" /> {/* 계산기 아이콘 */}
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-orange-400 drop-shadow-md">불티나 계산기</h1>
+      <div className="w-full max-w-md mx-auto bg-gray-800 rounded-3xl shadow-2xl p-3 sm:p-6 flex flex-col items-center mb-4 sm:mb-8">
+         {/* 제목 영역 */}
+        <div className="flex items-center mb-4 sm:mb-6">
+          <FaCalculator className="text-orange-400 text-3xl sm:text-4xl mr-2" />
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-orange-400 drop-shadow-md">불티나 계산기</h1>
         </div>
 
         {/* 계산기 본체 (흰색 영역) */}
-        <div className="w-full bg-white rounded-xl shadow-md flex flex-col items-center p-6 mb-6">
+        <div className="w-full bg-white rounded-xl shadow-md flex flex-col items-center p-3 sm:p-6 mb-4 sm:mb-6">
           {/* 내역 표시 영역 */}
-          <div className="w-full h-32 overflow-y-auto border border-gray-300 rounded p-2 mb-4 text-sm text-gray-800 font-mono">
+          <div className="w-full h-24 sm:h-32 overflow-y-auto border border-gray-300 rounded p-2 mb-3 sm:mb-4 text-sm text-gray-800 font-mono">
             {history.map((entry, index) => (
               <div key={index} className="flex justify-between">
                 <span>{entry.change > 0 ? '+' : ''}{entry.change.toLocaleString()}</span>
@@ -101,14 +101,14 @@ export default function Home() {
           </div>
 
           {/* 결과 표시 영역 */}
-          <div className="text-4xl font-mono text-orange-600 mb-8 break-words text-center w-full">
+          <div className="text-3xl sm:text-4xl font-mono text-orange-600 mb-6 sm:mb-8 break-words text-center w-full">
             {amount.toLocaleString()}원
           </div>
 
           {/* 금액 버튼 영역 (좌우 2열 그리드) */}
-          <div className="grid grid-cols-2 gap-4 w-full mb-4">
+          <div className="grid grid-cols-2 gap-2 sm:gap-4 w-full mb-3 sm:mb-4">
             {/* 좌측: 덧셈 버튼 */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2 sm:gap-4">
               <button
                 className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-2 font-bold shadow-md flex items-center justify-end px-4"
                 onClick={(e) => handleButtonClick(e, 10000)}
@@ -142,7 +142,7 @@ export default function Home() {
             </div>
 
             {/* 우측: 뺄셈 버튼 */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2 sm:gap-4">
               <button
                 className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-2 font-bold shadow-md flex items-center justify-end px-4"
                 onClick={(e) => handleButtonClick(e, -10000)}
