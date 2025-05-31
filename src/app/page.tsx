@@ -6,7 +6,7 @@ import { FaCalculator } from "react-icons/fa"; // 계산기 아이콘 임포트
 
 declare global {
   interface Window {
-    adsbygoogle: any[];
+    adsbygoogle: unknown[];
   }
 }
 
@@ -60,7 +60,8 @@ export default function Home() {
   // 광고 스크립트 로드 및 실행
   useEffect(() => {
     try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window.adsbygoogle as any[]).push({});
     } catch (error) {
       console.error('AdSense push error:', error);
     }
