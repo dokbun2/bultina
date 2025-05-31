@@ -14,10 +14,15 @@ export default function Home() {
     historyEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // 내역이 변경될 때마다 스크롤 이동
+  // 내역이 변경될 때마다 스크롤 이동 (맨 아래)
   useEffect(() => {
     scrollToBottom();
   }, [history]);
+
+  // 금액 또는 내역이 변경될 때 스크롤 맨 위로 이동
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [amount, history]);
 
   // 페이지 로드 시 저장된 데이터 불러오기 및 스크롤 맨 위로 이동
   useEffect(() => {
