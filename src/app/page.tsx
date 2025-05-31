@@ -77,7 +77,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-orange-100 to-orange-300 p-2 sm:p-4 overflow-hidden" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
+    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-orange-100 to-orange-300 p-2 sm:p-4" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
 
       {/* 핸드폰 모양 컨테이너 */}
       <div className="w-full max-w-md mx-auto bg-gray-800 rounded-3xl shadow-2xl p-3 sm:p-6 flex flex-col items-center mb-4 sm:mb-8">
@@ -88,7 +88,7 @@ export default function Home() {
         </div>
 
         {/* 계산기 본체 (흰색 영역) */}
-        <div className="w-full bg-white rounded-xl shadow-md flex flex-col items-center p-3 sm:p-6 mb-4 sm:mb-6">
+        <div className="w-full bg-white rounded-xl shadow-md flex flex-col items-center p-3 sm:p-6 mb-4 sm:mb-6 mb-auto">
           {/* 내역 표시 영역 */}
           <div className="w-full h-24 sm:h-32 overflow-y-auto border border-gray-300 rounded p-2 mb-3 sm:mb-4 text-sm text-gray-800 font-mono">
             {history.map((entry, index) => (
