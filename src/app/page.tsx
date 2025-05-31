@@ -26,9 +26,6 @@ export default function Home() {
       history.scrollRestoration = 'manual';
     }
 
-    // 페이지 로드 시 스크롤을 맨 위로 이동
-    window.scrollTo(0, 0);
-
     // 저장된 데이터 불러오기
     const savedAmount = localStorage.getItem('calculatorAmount');
     const savedHistory = localStorage.getItem('calculatorHistory');
@@ -40,6 +37,13 @@ export default function Home() {
       setHistory(JSON.parse(savedHistory));
     }
 
+    // 초기 로드 및 업데이트 후 스크롤 맨 위로 이동 (지연 시간 포함)
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100); // 100ms 지연
+
+    return () => clearTimeout(timer);
+
   }, []); // 빈 배열은 컴포넌트가 처음 마운트될 때만 실행되도록 함
 
   // 금액을 더하거나 빼는 함수 및 내역 기록
@@ -49,9 +53,11 @@ export default function Home() {
     const newHistory = [...history, { change: value, total: newAmount }];
     setHistory(newHistory);
     
-    // localStorage에 저장
     localStorage.setItem('calculatorAmount', newAmount.toString());
     localStorage.setItem('calculatorHistory', JSON.stringify(newHistory));
+
+    // 금액 업데이트 후 스크롤 맨 위로 이동
+    window.scrollTo(0, 0);
   };
 
   // 버튼 클릭 이벤트 핸들러
@@ -69,6 +75,8 @@ export default function Home() {
     setHistory([]);
     localStorage.removeItem('calculatorAmount');
     localStorage.removeItem('calculatorHistory');
+    // 클리어 후 스크롤 맨 위로 이동
+    window.scrollTo(0, 0);
   };
 
   // 마지막 작업 취소 (백스페이스 역할)
@@ -84,6 +92,8 @@ export default function Home() {
       localStorage.setItem('calculatorAmount', previousAmount.toString());
       localStorage.setItem('calculatorHistory', JSON.stringify(newHistory));
     }
+    // 작업 취소 후 스크롤 맨 위로 이동
+    window.scrollTo(0, 0);
   };
 
   return (
