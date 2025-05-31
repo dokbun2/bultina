@@ -44,6 +44,12 @@ export default function Home() {
     localStorage.setItem('calculatorHistory', JSON.stringify(newHistory));
   };
 
+  // 버튼 클릭 이벤트 핸들러
+  const handleButtonClick = (e: React.MouseEvent, value: number) => {
+    e.preventDefault();
+    handleUpdateAmount(value);
+  };
+
   // 전체 클리어
   const handleClear = () => {
     setAmount(0);
@@ -101,32 +107,32 @@ export default function Home() {
             {/* 좌측: 덧셈 버튼 */}
             <div className="flex flex-col gap-4">
               <button
-                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(10000)}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-2 font-bold shadow-md flex items-center justify-end px-4"
+                onClick={(e) => handleButtonClick(e, 10000)}
               >
                  +10,000원
               </button>
               <button
-                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(5000)}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-2 font-bold shadow-md flex items-center justify-end px-4"
+                onClick={(e) => handleButtonClick(e, 5000)}
               >
                  +5,000원
               </button>
               <button
-                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(1000)}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-2 font-bold shadow-md flex items-center justify-end px-4"
+                onClick={(e) => handleButtonClick(e, 1000)}
               >
                  +1,000원
               </button>
               <button
-                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(500)}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-2 font-bold shadow-md flex items-center justify-end px-4"
+                onClick={(e) => handleButtonClick(e, 500)}
               >
                  +500원
               </button>
               <button
-                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(100)}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-2 font-bold shadow-md flex items-center justify-end px-4"
+                onClick={(e) => handleButtonClick(e, 100)}
               >
                  +100원
               </button>
@@ -135,32 +141,32 @@ export default function Home() {
             {/* 우측: 뺄셈 버튼 */}
             <div className="flex flex-col gap-4">
               <button
-                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(-10000)}
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-2 font-bold shadow-md flex items-center justify-end px-4"
+                onClick={(e) => handleButtonClick(e, -10000)}
               >
                  -10,000원
               </button>
               <button
-                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(-5000)}
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-2 font-bold shadow-md flex items-center justify-end px-4"
+                onClick={(e) => handleButtonClick(e, -5000)}
               >
                  -5,000원
               </button>
               <button
-                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(-1000)}
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-2 font-bold shadow-md flex items-center justify-end px-4"
+                onClick={(e) => handleButtonClick(e, -1000)}
               >
                  -1,000원
               </button>
               <button
-                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(-500)}
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-2 font-bold shadow-md flex items-center justify-end px-4"
+                onClick={(e) => handleButtonClick(e, -500)}
               >
                  -500원
               </button>
               <button
-                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
-                onClick={() => handleUpdateAmount(-100)}
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-2 font-bold shadow-md flex items-center justify-end px-4"
+                onClick={(e) => handleButtonClick(e, -100)}
               >
                  -100원
               </button>
@@ -170,14 +176,20 @@ export default function Home() {
           {/* 제어 버튼 영역 (아래에 별도 배치) */}
           <div className="grid grid-cols-2 gap-4 w-full">
             <button
-              className="bg-red-500 hover:bg-red-600 text-white text-xl rounded-lg py-4 font-bold shadow-md"
-              onClick={handleClear}
+              className="bg-red-500 hover:bg-red-600 text-white text-xl rounded-lg py-2 font-bold shadow-md"
+              onClick={(e) => {
+                e.preventDefault();
+                handleClear();
+              }}
             >
               C
             </button>
             <button
-              className="bg-yellow-500 hover:bg-yellow-600 text-white text-2xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
-              onClick={handleUndoLast}
+              className="bg-yellow-500 hover:bg-yellow-600 text-white text-2xl rounded-lg py-2 font-bold shadow-md flex items-center justify-center"
+              onClick={(e) => {
+                e.preventDefault();
+                handleUndoLast();
+              }}
             >
               <HiOutlineBackspace />
             </button>
