@@ -4,6 +4,12 @@ import { useState, useEffect, useRef } from "react";
 import { HiOutlineBackspace } from "react-icons/hi"; // 백스페이스 아이콘 임포트
 import { FaCalculator } from "react-icons/fa"; // 계산기 아이콘 임포트
 
+declare global {
+  interface Window {
+    adsbygoogle: any[];
+  }
+}
+
 export default function Home() {
   const [amount, setAmount] = useState(0); // 현재 금액 상태
   const [history, setHistory] = useState<{ change: number; total: number }[]>([]); // 변경 내역 저장 (변경 금액 + 결과 금액)
@@ -50,6 +56,15 @@ export default function Home() {
     return () => clearTimeout(timer);
 
   }, []); // 빈 배열은 컴포넌트가 처음 마운트될 때만 실행되도록 함
+
+  // 광고 스크립트 로드 및 실행
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (error) {
+      console.error('AdSense push error:', error);
+    }
+  }, []); // 컴포넌트 마운트 시 한 번만 실행
 
   // 금액을 더하거나 빼는 함수 및 내역 기록
   const handleUpdateAmount = (value: number) => {
@@ -228,9 +243,6 @@ export default function Home() {
            data-ad-slot="4608762560"
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
 
     </div>
   );
