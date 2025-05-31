@@ -19,7 +19,7 @@ export default function Home() {
     scrollToBottom();
   }, [history]);
 
-  // 페이지 로드 시 저장된 데이터 불러오기 및 스크롤 맨 위로 이동
+  // 페이지 로드 시 저장된 데이터 불러오기
   useEffect(() => {
     const savedAmount = localStorage.getItem('calculatorAmount');
     const savedHistory = localStorage.getItem('calculatorHistory');
@@ -31,8 +31,23 @@ export default function Home() {
       setHistory(JSON.parse(savedHistory));
     }
 
-    // 페이지 로드 시 스크롤을 맨 위로 이동
-    window.scrollTo(0, 0);
+    // 페이지 내용 로드 후 스크롤을 맨 위로 이동
+    const handleLoad = () => {
+      window.scrollTo(0, 0);
+    };
+
+    // 페이지 로드 완료 시 이벤트 리스너 등록
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+    }
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
+
   }, []); // 빈 배열은 컴포넌트가 처음 마운트될 때만 실행되도록 함
 
   // 금액을 더하거나 빼는 함수 및 내역 기록
