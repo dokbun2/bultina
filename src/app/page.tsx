@@ -19,7 +19,7 @@ export default function Home() {
     scrollToBottom();
   }, [history]);
 
-  // 페이지 로드 시 저장된 데이터 불러오기
+  // 페이지 로드 시 저장된 데이터 불러오기 및 스크롤 맨 위로 이동
   useEffect(() => {
     const savedAmount = localStorage.getItem('calculatorAmount');
     const savedHistory = localStorage.getItem('calculatorHistory');
@@ -30,7 +30,10 @@ export default function Home() {
     if (savedHistory) {
       setHistory(JSON.parse(savedHistory));
     }
-  }, []);
+
+    // 페이지 로드 시 스크롤을 맨 위로 이동
+    window.scrollTo(0, 0);
+  }, []); // 빈 배열은 컴포넌트가 처음 마운트될 때만 실행되도록 함
 
   // 금액을 더하거나 빼는 함수 및 내역 기록
   const handleUpdateAmount = (value: number) => {
@@ -77,7 +80,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-orange-100 to-orange-300 p-2 sm:p-4" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
+    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-orange-100 to-orange-300 p-2 sm:p-4 overflow-y-auto" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
 
       {/* 핸드폰 모양 컨테이너 */}
       <div className="w-full max-w-md mx-auto bg-gray-800 rounded-3xl shadow-2xl p-3 sm:p-6 flex flex-col items-center mb-4 sm:mb-8">
