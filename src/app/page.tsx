@@ -142,7 +142,7 @@ export default function Home() {
           </div>
 
           {/* 결과 표시 영역 */}
-          <div className="text-3xl sm:text-4xl font-mono text-orange-600 mb-6 sm:mb-8 break-words text-center w-full">
+          <div className="text-4xl sm:text-5xl font-bold text-orange-600 mb-6 sm:mb-8 break-words text-center w-full">
             {amount.toLocaleString()}원
           </div>
 
