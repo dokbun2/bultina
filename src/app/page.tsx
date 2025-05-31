@@ -1,12 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { HiOutlineBackspace } from "react-icons/hi"; // 백스페이스 아이콘 임포트
 import { FaCalculator } from "react-icons/fa"; // 계산기 아이콘 임포트
 
 export default function Home() {
   const [amount, setAmount] = useState(0); // 현재 금액 상태
   const [history, setHistory] = useState<{ change: number; total: number }[]>([]); // 변경 내역 저장 (변경 금액 + 결과 금액)
+  const historyEndRef = useRef<HTMLDivElement>(null);
+
+  // 스크롤을 항상 최신 내역으로 이동시키는 함수
+  const scrollToBottom = () => {
+    historyEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // 내역이 변경될 때마다 스크롤 이동
+  useEffect(() => {
+    scrollToBottom();
+  }, [history]);
 
   // 페이지 로드 시 저장된 데이터 불러오기
   useEffect(() => {
@@ -77,6 +88,7 @@ export default function Home() {
                 <span>{entry.total.toLocaleString()}원</span>
               </div>
             ))}
+            <div ref={historyEndRef} />
           </div>
 
           {/* 결과 표시 영역 */}
@@ -89,56 +101,68 @@ export default function Home() {
             {/* 좌측: 덧셈 버튼 */}
             <div className="flex flex-col gap-4">
               <button
-                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
                 onClick={() => handleUpdateAmount(10000)}
               >
                  +10,000원
               </button>
               <button
-                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
                 onClick={() => handleUpdateAmount(5000)}
               >
                  +5,000원
               </button>
               <button
-                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
                 onClick={() => handleUpdateAmount(1000)}
               >
                  +1,000원
               </button>
               <button
-                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
                 onClick={() => handleUpdateAmount(500)}
               >
                  +500원
+              </button>
+              <button
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
+                onClick={() => handleUpdateAmount(100)}
+              >
+                 +100원
               </button>
             </div>
 
             {/* 우측: 뺄셈 버튼 */}
             <div className="flex flex-col gap-4">
               <button
-                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
                 onClick={() => handleUpdateAmount(-10000)}
               >
                  -10,000원
               </button>
               <button
-                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
                 onClick={() => handleUpdateAmount(-5000)}
               >
                  -5,000원
               </button>
               <button
-                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
                 onClick={() => handleUpdateAmount(-1000)}
               >
                  -1,000원
               </button>
               <button
-                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-4 font-bold shadow-md flex items-center justify-center"
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
                 onClick={() => handleUpdateAmount(-500)}
               >
                  -500원
+              </button>
+              <button
+                className="bg-gray-400 hover:bg-gray-500 text-white text-xl rounded-lg py-3 font-bold shadow-md flex items-center justify-center"
+                onClick={() => handleUpdateAmount(-100)}
+              >
+                 -100원
               </button>
             </div>
           </div>
