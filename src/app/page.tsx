@@ -194,18 +194,19 @@ export default function Home() {
 
         </div>
 
-        {/* 광고 단위 코드 */}
-        <ins className="adsbygoogle"
-             style={{ display: 'block' }}
-             data-ad-client="ca-pub-3297361889610977"
-             data-ad-slot="6720903121"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-
       </div>
+
+      {/* 광고 단위 코드 */}
+      <ins className="adsbygoogle"
+           style={{ display: 'block' }}
+           data-ad-client="ca-pub-3297361889610977"
+           data-ad-slot="6720903121"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+
     </div>
   );
 }
