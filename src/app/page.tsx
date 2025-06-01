@@ -121,7 +121,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col items-center bg-white p-2 sm:p-4 overflow-y-auto" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
 
       {/* 핸드폰 모양 컨테이너 */}
-      <div className="w-full max-w-md mx-auto bg-gray-800 rounded-3xl shadow-2xl p-3 sm:p-6 flex flex-col items-center mb-4 sm:mb-8">
+      <div className="w-full max-w-md mx-auto bg-gray-800 rounded-3xl shadow-2xl p-3 sm:p-6 flex flex-col items-center mb-6 sm:mb-8">
          {/* 제목 영역 */}
         <div className="flex items-center mb-4 sm:mb-6">
           <FaCalculator className="text-orange-400 text-3xl sm:text-4xl mr-2" />
@@ -238,7 +238,7 @@ export default function Home() {
       </div>
 
       {/* 광고 영역 컨테이너 */}
-      <div className="w-full max-w-md mx-auto p-4">
+      <div className="w-full max-w-md mx-auto pt-4 px-4 pb-4">
         {/* 광고 단위 코드 */}
         <ins className="adsbygoogle w-full"
              style={{ display: 'block', minHeight: '100px' }}
