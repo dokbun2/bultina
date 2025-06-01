@@ -237,13 +237,16 @@ export default function Home() {
 
       </div>
 
-      {/* 광고 단위 코드 */}
-      <ins className="adsbygoogle"
-           style={{ display: 'block', minHeight: '100px' }}
-           data-ad-client="ca-pub-3297361889610977"
-           data-ad-slot="4608762560"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
+      {/* 광고 영역 컨테이너 */}
+      <div className="w-full max-w-md mx-auto p-4">
+        {/* 광고 단위 코드 */}
+        <ins className="adsbygoogle w-full"
+             style={{ display: 'block', minHeight: '100px' }}
+             data-ad-client="ca-pub-3297361889610977"
+             data-ad-slot="4608762560"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
 
     </div>
   );
